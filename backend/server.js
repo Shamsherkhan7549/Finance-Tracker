@@ -1,5 +1,5 @@
 const express = require('express');
-
+const contectDb = require('./configue/db.js');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -7,9 +7,13 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT||8080;
+
 //Middleware
 app.use(cors());
 app.use(express.json());
+
+// db connection
+contectDb();
 
 app.get('/', (req, res) => {
     res.send('api working...');
