@@ -5,13 +5,20 @@ const addTransactions = async (req, res) => {
     try {
         if (!req.body) return res.status(400).json({ success: false, message: "Please Enter All Data" });
 
-        const savedTransaction = await TRANSACTION.create(req.body);
+        const {title, amount, date, category, type} = req.body;
+
+        const [day, month, year] = date.split("/");
+        const formattedDate = new Date(`${year}-${month}-${day}`);
+
+
+        const savedTransaction = await TRANSACTION.create({title, amount, date:formattedDate, category, type});
 
         if (!savedTransaction) return res.status(400).json({ success: false, message: "Transaction not saved, Try Again..." });
 
         return res.status(200).json({ success: true, message: "Transaction Saved" });
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ success: false, message: error.message });
     }
 };
