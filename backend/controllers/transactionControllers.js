@@ -77,14 +77,26 @@ const updateTransaction = async (req, res) => {
     }
 };
 
-const deleteTransaction = (req, res) => {
+
+const deleteTransaction = async(req, res) => {
     try {
-        
+        const {_id} = req.params;
+
+        const existingTransaction = await TRANSACTION.findById(_id);
+
+        if (existingTransaction===null) return res.status(400).json({ success: false, message: "Transaction not found" });
+
+        const deletedTransaction = await TRANSACTION.findByIdAndDelete(_id);
+
+        return res.status(200).json({ success: true, message: "Transaction Deleted"});
+   
     } catch (error) {
-        
+        return res.status(500).json({ success: false, message: error.message });
+
     }
-}
+};
 
 
 
-module.exports = { addTransactions, readAllTransactions, readSingleTransaction, updateTransaction};
+
+module.exports = { addTransactions, readAllTransactions, readSingleTransaction, updateTransaction, deleteTransaction};
