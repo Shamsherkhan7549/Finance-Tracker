@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-labelledby="title desc">
+  <title id="title">Finance Tracker Logo</title>
+  <desc id="desc">Minimal logo: stylized wallet + upward bar chart and arrow, transparent background</desc>
+
+  <!-- Wallet body -->
+  <g transform="translate(20,28)">
+    <rect x="0" y="40" rx="12" ry="12" width="200" height="110" fill="#0b74ff" opacity="0.92"/>
+    <!-- Wallet flap -->
+    <path d="M0 40 L48 8 L200 8 L200 40 Z" fill="#0b6bff" opacity="0.98"/>
+    <!-- Card slot lines -->
+    <rect x="16" y="58" width="120" height="10" rx="4" ry="4" fill="#ffffff" opacity="0.12"/>
+    <rect x="16" y="76" width="90" height="8" rx="3" ry="3" fill="#ffffff" opacity="0.08"/>
+  </g>
+
+  <!-- Rising bar chart slightly overlapping wallet -->
+  <g transform="translate(60,58)">
+    <rect x="0" y="64" width="18" height="34" rx="3" ry="3" fill="#00c853"/>
+    <rect x="30" y="46" width="18" height="52" rx="3" ry="3" fill="#00e676"/>
+    <rect x="60" y="26" width="18" height="72" rx="3" ry="3" fill="#64dd17"/>
+    <!-- Arrow showing upward trend -->
+    <path d="M78 14 L120 14 L120 0 L150 32 L120 64 L120 50 L78 50 Z" fill="#1b5e20" opacity="0.95" transform="translate(-8,4) rotate(-12 100 30)"/>
+  </g>
+
+  <!-- Small rupee/dollar-style mark on wallet (generic currency symbol) -->
+  <g transform="translate(150,95)">
+    <path d="M12 0 C6 0 0 4 0 10 C0 14 2 16 6 18 C10 20 10 22 10 24 L10 26" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M0 12 L14 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Outline stroke to give subtle depth -->
+  <g transform="translate(20,28)" fill="none">
+    <rect x="0.75" y="40.75" rx="12" ry="12" width="199.5" height="109.5" stroke="#000" stroke-opacity="0.06"/>
+    <path d="M0.75 40.75 L48 8.5 L200 8.5 L200 40.75 Z" stroke="#000" stroke-opacity="0.04"/>
+  </g>
+</svg>
