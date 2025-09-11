@@ -50,8 +50,35 @@ const readSingleTransaction = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
     }
-}
+};
+
+// Update Transaction
+const updateTransaction = async (req, res) => {
+    try {
+        const {_id} = req.params;
+
+        const existingTransaction = await TRANSACTION.findById(_id);
+
+        if (existingTransaction===null) return res.status(400).json({ success: false, message: "Transaction not found" });
+
+        const {title, amount, date, category, type} = req.body;
+
+        // formatting date
+        const [day, month, year] = date.split("/");
+        const formattedDate = new Date(`${year}-${month}-${day}`);
+
+        const savedTransaction = await TRANSACTION.findByIdAndUpdate(_id, {title, amount, date:formattedDate, category, type});
+
+        if (!savedTransaction) return res.status(400).json({ success: false, message: "Transaction not saved, Try Again..." });
+
+        return res.status(200).json({ success: true, message: "Transaction Updated" });
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ success: false, message: error.message });
+    }
+};
 
 
 
-module.exports = { addTransactions, readAllTransactions, readSingleTransaction};
+module.exports = { addTransactions, readAllTransactions, readSingleTransaction, updateTransaction};
