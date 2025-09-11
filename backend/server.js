@@ -2,6 +2,7 @@ const express = require('express');
 const contectDb = require('./configue/db.js');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const router = require('./routes/transactionRoutes.js');
 
 dotenv.config();
 
@@ -18,6 +19,10 @@ contectDb();
 app.get('/', (req, res) => {
     res.send('api working...');
 });
+
+//Middleware
+app.use('/api/transactions', router);
+
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`)
