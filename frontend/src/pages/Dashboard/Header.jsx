@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TransactionContext } from '../../context/ContextProvider';
 import { Button, Modal, Form, Input, Select } from 'antd';
 import axios from 'axios';
@@ -8,9 +8,42 @@ import { toast } from "react-toastify";
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
-    const { fetchTransactions } = useContext(TransactionContext);
+    const { fetchTransactions, transactionsInfo, setTransactionsInfo } = useContext(TransactionContext);
+    const [category, setCategory] = useState([]);
+    const [transactionsDup, setTransactionsDup] = useState([])
+    const [income, setIncome] = useState(true);
+    const [expense, setExpense] = useState(true);
 
     const url = import.meta.env.VITE_BACKEND_URL;
+
+    // Filter by type
+    const handlingTypeIncome = (event) => {
+        setIncome(!income)
+        if (income) {
+            setTransactionsDup(transactionsInfo);
+            const filteredTransactions = transactionsInfo.filter(
+                (ele) => ele.type === event.target.value
+            );
+            setTransactionsInfo(filteredTransactions);
+        } else {
+            setTransactionsInfo(transactionsDup);
+        }
+    }
+
+
+    const handlingTypeExpense = (event) => {
+        setExpense(!expense)
+        if (expense) {
+            setTransactionsDup(transactionsInfo);
+            const filteredTransactions = transactionsInfo.filter(
+                (ele) => ele.type === event.target.value
+            );
+            setTransactionsInfo(filteredTransactions);
+        } else {
+            setTransactionsInfo(transactionsDup);
+
+        }
+    }
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -38,14 +71,33 @@ const Header = () => {
         }
     }
 
+    useEffect(() => {
+        const filterCategory = transactionsInfo.map(item => item.category);
+        setCategory(filterCategory.filter((item, index) => filterCategory.indexOf(item) === index));
+    }, [transactionsInfo])
 
     return (
         <div>
-            <div className="d-flex bg-light justify-content-between align-items-center mx-sm-5 m-3 p-3 my-5 px-sm-5 py-sm-5 shadow-sm rounded">
-                <div>range filter</div>
+            <div className="d-flex flex-column flex-md-row gap-4 gap-md-0 justify-content-between align-items-start align-items-md-center mx-sm-5 m-3 p-3 my-2 px-sm-5 py-sm-5 shadow-sm rounded">
+                <div className='d-flex flex-column flex-md-row gap-4'>
+                    <div className='d-flex flex-column gap-1 align-items-center justify-content-center input-group-text'>
+                        <p className='form-label'>Select Type</p>
+                        <div className='d-flex gap-1 align-items-center bg-light '>
+                            <label className='form-label fw-semibold' htmlFor='income'>Income</label>
+                            <input id='income' value={'income'} className="form-check-input mb-2" type="checkbox" aria-label="Checkbox for following text input" onChange={handlingTypeIncome} />
+                        </div>
+
+                        <div className='d-flex gap-1 align-items-center '>
+                            <label className='form-label fw-semibold' htmlFor='expense'>Expense</label>
+                            <input id='expense' value={"expense"} className="form-check-input mb-2" type="checkbox" aria-label="Checkbox for following text input" onChange={handlingTypeExpense} />
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <button onClick={showModal} className='btn btn-primary'>Add New</button>
                 </div>
+
+
             </div>
 
             <Modal

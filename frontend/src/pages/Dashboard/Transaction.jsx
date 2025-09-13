@@ -53,7 +53,6 @@ const Transaction = () => {
     const handlingDelete = async (id) => {
         try {
             const response = await axios.delete(`${url}/${id}`);
-            console.log(response);
             if (response.data.success) {
                 toast.success(response.data.message || "Transaction deleted successfully!");
                 fetchTransactions();
@@ -68,7 +67,7 @@ const Transaction = () => {
 
     return (
         <div className='container'>
-            <div className="row my-5 shadow p-5 mb-5 bg-body rounded table-responsive-md">
+            <div className="row shadow p-5 mb-5 bg-body rounded table-responsive-md">
                 <table className="table">
                     <thead>
                         <tr>
