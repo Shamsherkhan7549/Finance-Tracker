@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { TransactionContext } from '../../context/ContextProvider';
 import { Button, Modal, Form, Input, Select } from 'antd';
 import axios from 'axios';
 import { toast } from "react-toastify";
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
+    const { fetchTransactions } = useContext(TransactionContext);
 
     const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -17,28 +19,29 @@ const Header = () => {
         setIsModalOpen(false);
     };
 
-    const handleSubmit = async(values) => {
+    const handleSubmit = async (values) => {
 
-        try{
-            const response = await axios.post(url,values);
-            if(response.data.success){
-                  toast.success("Transaction saved successfully!");
-                 setIsModalOpen(false);
-                 form.resetFields();
+        try {
+            const response = await axios.post(url, values);
+            if (response.data.success) {
+                toast.success("Transaction saved successfully!");
+                fetchTransactions();
+                setIsModalOpen(false);
+                form.resetFields();
 
-            }else{
-                    toast.error(response.data.message || "Something went wrong");
+            } else {
+                toast.error(response.data.message || "Something went wrong");
             }
         }
-        catch(error){
-             toast.error(error.response.data.message || "Something went wrong");
+        catch (error) {
+            toast.error(error.response.data.message || "Something went wrong");
         }
     }
 
 
     return (
         <div>
-            <div className="d-flex bg-light justify-content-between align-items-center mx-5 my-5 px-5 py-5 shadow-sm rounded">
+            <div className="d-flex bg-light justify-content-between align-items-center mx-sm-5 m-3 p-3 my-5 px-sm-5 py-sm-5 shadow-sm rounded">
                 <div>range filter</div>
                 <div>
                     <button onClick={showModal} className='btn btn-primary'>Add New</button>
@@ -55,19 +58,19 @@ const Header = () => {
 
                 <Form form={form} layout='vertical' onFinish={handleSubmit}>
                     <Form.Item label="Title" name="title">
-                        <Input type='text'/>
+                        <Input type='text' />
                     </Form.Item>
 
                     <Form.Item label="Amount" name="amount">
-                        <Input type='text'/>
+                        <Input type='text' />
                     </Form.Item>
 
                     <Form.Item label="Date" name="date">
-                        <Input type='date'/>
+                        <Input type='date' />
                     </Form.Item>
 
                     <Form.Item label="Category" name="category">
-                        <Input type='text'placeholder='salary, food, entertainment...'/>
+                        <Input type='text' placeholder='salary, food, entertainment...' />
                     </Form.Item>
 
                     <Form.Item label="Type" name="type">
