@@ -7,7 +7,7 @@ const addTransactions = async (req, res) => {
 
         const {title, amount, date, category, type} = req.body;
 
-        const [day, month, year] = date.split("/");
+        const [ month, day, year] = date.split("/");
         const formattedDate = new Date(`${year}-${month}-${day}`);
 
 
