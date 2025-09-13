@@ -9,7 +9,6 @@ const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
     const { fetchTransactions, transactionsInfo, setTransactionsInfo } = useContext(TransactionContext);
-    const [category, setCategory] = useState([]);
     const [transactionsDup, setTransactionsDup] = useState([])
     const [income, setIncome] = useState(true);
     const [expense, setExpense] = useState(true);
@@ -55,7 +54,7 @@ const Header = () => {
     const handleSubmit = async (values) => {
 
         try {
-            const response = await axios.post(url, values);
+            const response = await axios.post(`${url}/api/transactions`, values);
             if (response.data.success) {
                 toast.success("Transaction saved successfully!");
                 fetchTransactions();
@@ -70,11 +69,6 @@ const Header = () => {
             toast.error(error.response.data.message || "Something went wrong");
         }
     }
-
-    useEffect(() => {
-        const filterCategory = transactionsInfo.map(item => item.category);
-        setCategory(filterCategory.filter((item, index) => filterCategory.indexOf(item) === index));
-    }, [transactionsInfo])
 
     return (
         <div>

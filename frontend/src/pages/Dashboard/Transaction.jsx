@@ -16,7 +16,7 @@ const Transaction = () => {
         try {
             setIsModalOpen(true);
             setEditId(id)
-            const response = await axios.get(`${url}/${id}`);
+            const response = await axios.get(`${url}/api/transactions/${id}`);
             if (response.data.success) {
                 form.setFieldsValue(response.data.transaction);
             }
@@ -32,7 +32,7 @@ const Transaction = () => {
     const handleSubmit = async (values) => {
        
         try {
-            const response = await axios.put(`${url}/${editId}`, values);
+            const response = await axios.put(`${url}/api/transactions/${editId}`, values);
             if (response.data.success) {
                 toast.success("Transaction updated successfully!");
                 fetchTransactions();
@@ -52,11 +52,12 @@ const Transaction = () => {
     // Delete transaction
     const handlingDelete = async (id) => {
         try {
-            const response = await axios.delete(`${url}/${id}`);
+            const response = await axios.delete(`${url}/api/transactions/${id}`);
             if (response.data.success) {
                 toast.success(response.data.message || "Transaction deleted successfully!");
                 fetchTransactions();
             } else {
+                console.log(error)
                 toast.error(response.data.message || "Something went wrong");
             }
         } catch (error) {

@@ -10,7 +10,7 @@ const ContextProvider = ({children}) => {
 
     const fetchTransactions = async()=>{
         try{
-            const response = await axios.get(url);
+            const response = await axios.get(`${url}/api/transactions`);
             if(response.data.success){
 
                 setTransactionsInfo(response.data.transaction);
