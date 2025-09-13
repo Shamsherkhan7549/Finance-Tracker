@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, Input, Select } from 'antd';
+import axios from 'axios';
+import { toast } from "react-toastify";
+
+
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-   
+    const url = import.meta.env.VITE_BACKEND_URL;
+
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -10,8 +15,21 @@ const Header = () => {
         setIsModalOpen(false);
     };
 
-    const handleSubmit = (values) => {
-        console.log(values);
+    const handleSubmit = async(values) => {
+
+        try{
+            const response = await axios.post(url,values);
+            if(response.data.success){
+                  toast.success("Transaction saved successfully!");
+                 setIsModalOpen(false);
+
+            }else{
+                    toast.error(response.data.message || "Something went wrong");
+            }
+        }
+        catch(error){
+             toast.error(error.response.data.message || "Something went wrong");
+        }
     }
 
 

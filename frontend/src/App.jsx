@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Navbar from './components/Navbar'
+import { ToastContainer } from "react-toastify";
 
 
 const App = () => {
@@ -9,7 +10,8 @@ const App = () => {
     <>
 
       <BrowserRouter>
-      <Navbar/>
+        <ToastContainer />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
         </Routes>
