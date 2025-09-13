@@ -1,18 +1,19 @@
 import axios from 'axios';
-import React, {createContext,useEffect } from 'react'
+import React, { createContext,useEffect } from 'react'
 export const TransactionContext = createContext();
 import { toast } from "react-toastify";
 
 
 const ContextProvider = ({children}) => {
-    const [transactions, setTransactions] = React.useState([]);
+    const [transactionsInfo, setTransactionsInfo] = React.useState([]);
     const url = import.meta.env.VITE_BACKEND_URL;
 
     const fetchTransactions = async()=>{
         try{
             const response = await axios.get(url);
             if(response.data.success){
-                setTransactions(response.data.data);
+
+                setTransactionsInfo(response.data.transaction);
             }else{
                 toast.error(response.data.message || "Something went wrong");
             }
@@ -25,7 +26,7 @@ const ContextProvider = ({children}) => {
         fetchTransactions();
     },[])
 
-    const values = {transactions, setTransactions, fetchTransactions};
+    const values = {transactionsInfo, setTransactionsInfo, fetchTransactions};
   return (
     <TransactionContext.Provider value = {values}>
         {children}
