@@ -10,7 +10,10 @@ const app = express();
 const port = process.env.PORT||8080;
 
 //Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // allow React frontend
+  credentials: true // if using cookies / auth headers
+}));
 app.use(express.json());
 
 // db connection
