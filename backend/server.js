@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 //Middleware
-app.use('/api/transactions', router);
+app.use('/', router);
 
 
 app.listen(port, () => {

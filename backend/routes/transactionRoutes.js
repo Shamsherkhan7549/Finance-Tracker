@@ -3,11 +3,11 @@ const { addTransactions, readAllTransactions, readSingleTransaction, updateTrans
 
 const router = express.Router();
 
-router.post('/', addTransactions);
-router.get('/', readAllTransactions);
-router.get('/:_id', readSingleTransaction);
-router.put('/:_id', updateTransaction);
-router.delete('/:_id', deleteTransaction);
+router.post('/api/transactions', addTransactions);
+router.get('/api/transactions', readAllTransactions);
+router.get('/api/transactions/:_id', readSingleTransaction);
+router.put('/api/transactions/:_id', updateTransaction);
+router.delete('/api/transactions/:_id', deleteTransaction);
 
 
 module.exports = router;
