@@ -7,11 +7,7 @@ const addTransactions = async (req, res) => {
 
         const {title, amount, date, category, type} = req.body;
 
-        const [ month, day, year] = date.split("/");
-        const formattedDate = new Date(`${year}-${month}-${day}`);
-
-
-        const savedTransaction = await TRANSACTION.create({title, amount, date:formattedDate, category, type});
+        const savedTransaction = await TRANSACTION.create({title, amount, date, category, type});
 
         if (!savedTransaction) return res.status(400).json({ success: false, message: "Transaction not saved, Try Again..." });
 
@@ -62,11 +58,7 @@ const updateTransaction = async (req, res) => {
 
         const {title, amount, date, category, type} = req.body;
 
-        // formatting date
-        const [day, month, year] = date.split("/");
-        const formattedDate = new Date(`${year}-${month}-${day}`);
-
-        const savedTransaction = await TRANSACTION.findByIdAndUpdate(_id, {title, amount, date:formattedDate, category, type});
+        const savedTransaction = await TRANSACTION.findByIdAndUpdate(_id, {title, amount, date, category, type});
 
         if (!savedTransaction) return res.status(400).json({ success: false, message: "Transaction not saved, Try Again..." });
 
@@ -77,7 +69,7 @@ const updateTransaction = async (req, res) => {
     }
 };
 
-
+// Delete Transaction
 const deleteTransaction = async(req, res) => {
     try {
         const {_id} = req.params;
