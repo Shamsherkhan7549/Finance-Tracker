@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [form] = Form.useForm();
+
     const url = import.meta.env.VITE_BACKEND_URL;
 
     const showModal = () => {
@@ -22,6 +24,7 @@ const Header = () => {
             if(response.data.success){
                   toast.success("Transaction saved successfully!");
                  setIsModalOpen(false);
+                 form.resetFields();
 
             }else{
                     toast.error(response.data.message || "Something went wrong");
@@ -50,7 +53,7 @@ const Header = () => {
                 footer={false}
             >
 
-                <Form layout='vertical' onFinish={handleSubmit}>
+                <Form form={form} layout='vertical' onFinish={handleSubmit}>
                     <Form.Item label="Title" name="title">
                         <Input type='text'/>
                     </Form.Item>
