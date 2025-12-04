@@ -111,7 +111,7 @@ const Transaction = () => {
                 </table>
 
                 <Modal
-                    title="Add New Transaction"
+                    title="Update Transaction"
                     closable={{ 'aria-label': 'Custom Close Button' }}
                     open={isModalOpen}
                     onCancel={handleCancel}
